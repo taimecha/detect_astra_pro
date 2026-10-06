@@ -26,7 +26,7 @@ usbipd attach --wsl --busid <BUSID>
 
 Lệnh `bind` cần PowerShell chạy với quyền quản trị và chỉ cần khi thiết bị chưa được chia sẻ. BUSID có thể thay đổi khi đổi cổng USB.
 
-Kiểm tra `/dev/video0` đã xuất hiện trong WSL và người dùng có quyền truy cập camera. Nếu camera dùng đường dẫn khác, sửa biến `DEVICE` trong script tương ứng.
+Kiểm tra `/dev/video0` đã xuất hiện trong WSL và người dùng có quyền truy cập camera. Riêng script nhận diện pallet có thể chọn camera khác bằng biến môi trường `PALLET_CAMERA`, ví dụ `PALLET_CAMERA=/dev/video2 python src/test_pallets.py`.
 
 ## Chạy
 
@@ -44,3 +44,23 @@ python src/capture_rgb.py
 ```
 
 Nhấn **Q** trong cửa sổ camera để thoát. Với `capture_rgb.py`, nhấn **S** để lưu ảnh vào `data/rgb/` (thư mục tự tạo). Ảnh chụp và môi trường Python không được đưa vào Git.
+
+## Xem ảnh depth và vật cản trong ROS 2
+
+Các script trong `scripts/` dùng ROS 2 Jazzy và Astra driver đã build trong `/home/tai/tai_robot_one_community/ros2_ws`. Cấu hình hiện tại dành cho máy `tai`; nếu dùng máy khác, cần cập nhật các đường dẫn ROS workspace và thư viện trong script. Camera thật được đặt cao 0,8 m, chúc xuống 20°; URDF của robot phải khai báo góc pitch `+20°` để `/camera/obstacle_scan` lọc sàn theo đúng độ cao.
+
+Mở depth đơn thuần bằng hai terminal:
+
+```bash
+bash scripts/open_depth.sh
+bash scripts/open_depth_rviz.sh
+```
+
+Xem trước scan vật cản mà không khởi động động cơ hoặc Nav2:
+
+```bash
+bash scripts/preview_pallet_obstacles.sh
+bash scripts/open_pallet_obstacle_rviz.sh
+```
+
+Mở mỗi lệnh trong một terminal riêng. RViz dùng `base_footprint` làm gốc tọa độ, hiển thị `/camera/obstacle_scan` và ẩn point cloud thô để không lẫn sàn vào hình vật cản. Preview chưa thay thế việc kiểm tra trên robot thật trước khi cho xe di chuyển.

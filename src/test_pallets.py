@@ -1,4 +1,5 @@
 import cv2
+import os
 import time
 import torch
 from pathlib import Path
@@ -9,7 +10,7 @@ from ultralytics import YOLO
 # 1. CẤU HÌNH
 # ============================================================
 
-DEVICE = "/dev/video0"
+DEVICE = os.environ.get("PALLET_CAMERA", "/dev/video0")
 
 WIDTH = 640
 HEIGHT = 480

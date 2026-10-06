@@ -6,3 +6,4 @@ __pycache__/
 *:Zone.Identifier
 data/
 runs/
+.vscode/
