@@ -1,0 +1,7 @@
+{
+  "description": "Preview calibration for this RGB camera and the measured box only. Input and output are ray distances from the optical center in metres.",
+  "raw_ray_ranges_m": [1.5405639815, 1.7934076875, 2.1288778929],
+  "measured_ray_ranges_m": [1.12, 1.43, 1.70],
+  "boundary_margin_m": 0.08,
+  "outside_calibrated_range": "nan"
+}
